@@ -74,7 +74,6 @@ export default function App() {
       <h2>CSV Synced Charts (z odtwarzaniem i tytułami)</h2>
 
       {isDesktop ? (
-        // Desktop: lewa kolumna + prawa kolumna
         <div style={{ display: 'flex', width: '100%', height: '100%' }}>
           <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <FileUploader onData={onData}/>
@@ -101,19 +100,23 @@ export default function App() {
                   Wybierz kolumnę do wyświetlenia
                 </div>
               )}
-              {selected.map((col) => (
-                <div key={col} style={{ width: '100%', marginBottom: '1.5rem' }}>
-                  <h3 style={{ margin: '0 0 0.5rem 0', textAlign: 'center' }}>{col}</h3>
-                  <div style={{ width: '100%', height: 250 }}>
-                    <SyncedChart data={visible} dataKey={col} syncId={'timeSync'}/>
+              {selected.map((col) => {
+                const lastValue = visible.length ? visible[visible.length - 1][col] : '';
+                return (
+                  <div key={col} style={{ width: '100%', marginBottom: '1.5rem' }}>
+                    <h3 style={{ margin: '0 0 0.5rem 0', textAlign: 'center' }}>
+                      {col} {lastValue !== '' && `(ostatnia: ${lastValue})`}
+                    </h3>
+                    <div style={{ width: '100%', height: 250 }}>
+                      <SyncedChart data={visible} dataKey={col} syncId={'timeSync'}/>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
       ) : (
-        // Mobile/Tablet: plik + kolumny u góry
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <FileUploader onData={onData}/>
           <div>
@@ -137,14 +140,19 @@ export default function App() {
                 Wybierz kolumnę do wyświetlenia
               </div>
             )}
-            {selected.map((col) => (
-              <div key={col} style={{ width: '100%', marginBottom: '1.5rem' }}>
-                <h3 style={{ margin: '0 0 0.5rem 0', textAlign: 'center' }}>{col}</h3>
-                <div style={{ width: '100%', height: 250 }}>
-                  <SyncedChart data={visible} dataKey={col} syncId={'timeSync'}/>
+            {selected.map((col) => {
+              const lastValue = visible.length ? visible[visible.length - 1][col] : '';
+              return (
+                <div key={col} style={{ width: '100%', marginBottom: '1.5rem' }}>
+                  <h3 style={{ margin: '0 0 0.5rem 0', textAlign: 'center' }}>
+                    {col} {lastValue !== '' && `(ostatnia: ${lastValue})`}
+                  </h3>
+                  <div style={{ width: '100%', height: 250 }}>
+                    <SyncedChart data={visible} dataKey={col} syncId={'timeSync'}/>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
