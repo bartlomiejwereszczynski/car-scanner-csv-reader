@@ -4,7 +4,7 @@ First try at vibe coding, less than 2h produced this (with a bit of github confi
 
 ## What does it do?
 
-Well, i needed some way to read data log file exported from Android [Car Scanner app](https://play.google.com/store/apps/details?id=com.ovz.carscanner). It loads into your browser file that you want to browse (charts adjust dynamically) and display recorded data.
+Well, i needed some way to read data log file exported from Android [Car Scanner app](https://play.google.com/store/apps/details?id=com.ovz.carscanner). It loads your exported CSV file into your browser, parses it, and the allows you to display recorded data (charts adjust dynamically).
 
 what you can control:
 - which data/column to show
