@@ -1,6 +1,6 @@
 # Car Scanner "CSV #2" data reader
 
-First try at vibe coding, less than 2h produced this (with a bit of github configuration and excludeing writing this readme and some of the translation). Code produced looks horrible, but somehow it actually works and does what's needed.
+First try at vibe coding, less than 2h produced this (with a bit of github configuration and excluding writing this readme and some of the translation). Code produced looks horrible, but somehow it actually works and does what's needed.
 
 ## What does it do?
 
