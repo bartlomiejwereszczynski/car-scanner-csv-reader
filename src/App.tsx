@@ -4,6 +4,7 @@ import ColumnSelector                          from './components/ColumnSelector
 import WindowControls                          from './components/WindowControls';
 import SyncedChart                             from './components/SyncedChart';
 import { ParsedRow }                           from './utils/parseCsv';
+import SelectedColumnsInfo                     from './components/SelectedColumnsInfo';
 
 export default function App() {
   const [data, setData] = useState<ParsedRow[]>([]);
@@ -79,6 +80,9 @@ export default function App() {
       padding: '1rem',
     }}>
       <h2>CSV Synced Charts (z odtwarzaniem i tytułami)</h2>
+
+      {/* Pływający komponent pokazujący zaznaczone kolumny */}
+      <SelectedColumnsInfo selected={selected} visibleData={visible} />
 
       {isDesktop ? (
         <div style={{ display: 'flex', flex: 1, gap: '1rem' }}>

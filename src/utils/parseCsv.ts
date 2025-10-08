@@ -64,7 +64,9 @@ export function parseCsv(content: string): ParsedRow[] {
     skipEmptyLines: true,
   });
 
-  const rows = (result.data as any[]).map((row) => ({
+  const rows = (result.data as any[]).map((row) =>
+    Object.fromEntries(Object.entries(row).filter(([key, value]) => key !== ''))
+  ).map((row: any) => ({
     ...row,
     time: row.time,
     timeMs: parseTimeToMs(row.time),
