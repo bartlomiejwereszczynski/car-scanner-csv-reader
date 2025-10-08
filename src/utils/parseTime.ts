@@ -8,7 +8,7 @@ export function parseTimeToMillis(timeStr: string): number {
   const m = parseInt(mStr, 10);
   const [secStr, msStr = '0'] = sStr.split('.');
   const s = parseInt(secStr, 10);
-  const ms = parseInt(msStr.padEnd(3, '0').slice(0,3), 10);
+  const ms = parseInt(msStr.padEnd(3, '0').slice(0, 3), 10);
   return h * 3600000 + m * 60000 + s * 1000 + ms;
 }
 
@@ -20,7 +20,7 @@ export function formatMillisAsTime(ms: number): string {
     const m = Math.floor((ms % 3600000) / 60000);
     const s = Math.floor((ms % 60000) / 1000);
     const msPart = ms % 1000;
-    return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}.${String(msPart).padStart(3,'0')}`;
+    return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${String(msPart).padStart(3, '0')}`;
   }
   return `${ms}ms`;
 }

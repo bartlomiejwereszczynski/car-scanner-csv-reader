@@ -79,17 +79,16 @@ export default function App() {
       flexDirection: 'column',
       padding: '1rem',
     }}>
-      <h2>CSV Synced Charts (z odtwarzaniem i tytułami)</h2>
+      <h2>CSV Synced Charts (with real-time playback)</h2>
 
-      {/* Pływający komponent pokazujący zaznaczone kolumny */}
-      <SelectedColumnsInfo selected={selected} visibleData={visible} />
+      <SelectedColumnsInfo selected={selected} visibleData={visible}/>
 
       {isDesktop ? (
         <div style={{ display: 'flex', flex: 1, gap: '1rem' }}>
           <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <FileUploader onData={onData}/>
             <div>
-              <div style={{ marginBottom: 8 }}>Kolumny do wyświetlenia:</div>
+              <div style={{ marginBottom: 8 }}>Data to show:</div>
               <ColumnSelector columns={columns} selected={selected} onToggle={toggle}/>
             </div>
           </div>
@@ -97,7 +96,7 @@ export default function App() {
             <div style={{ flex: 1, overflowY: 'auto' }}>
               {selected.length === 0 && (
                 <div style={{ textAlign: 'center', padding: '1rem', border: '1px dashed #ccc' }}>
-                  Wybierz kolumnę do wyświetlenia
+                  Choose data you want to see
                 </div>
               )}
               {selected.map((col) => {
@@ -120,13 +119,13 @@ export default function App() {
         <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '1rem' }}>
           <FileUploader onData={onData}/>
           <div>
-            <div style={{ marginBottom: 8 }}>Kolumny do wyświetlenia:</div>
+            <div style={{ marginBottom: 8 }}>Data to show:</div>
             <ColumnSelector columns={columns} selected={selected} onToggle={toggle}/>
           </div>
           <div style={{ flex: 1, overflowY: 'auto' }}>
             {selected.length === 0 && (
               <div style={{ textAlign: 'center', padding: '1rem', border: '1px dashed #ccc' }}>
-                Wybierz kolumnę do wyświetlenia
+                Choose data you want to see
               </div>
             )}
             {selected.map((col) => {
@@ -146,7 +145,6 @@ export default function App() {
         </div>
       )}
 
-      {/* Pływające kontrolki przypięte do dołu okna */}
       <div style={{
         position: 'fixed',
         bottom: 0,

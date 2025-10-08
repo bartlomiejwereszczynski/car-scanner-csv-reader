@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default function WindowControls({
                                          min,
@@ -9,7 +9,7 @@ export default function WindowControls({
                                          setWindowMs,
                                          isPlaying,
                                          onPlayPause,
-                                         onStop
+                                         onStop,
                                        }: {
   min: number
   max: number
@@ -24,9 +24,9 @@ export default function WindowControls({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: '100%' }}>
       <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-        <button onClick={onPlayPause}>{isPlaying ? '⏸️ Pauza' : '▶️ Odtwórz'}</button>
+        <button onClick={onPlayPause}>{isPlaying ? '⏸️ Pause' : '▶️ Play'}</button>
         <button onClick={onStop}>⏹️ Stop</button>
-        <label>Okno (ms)</label>
+        <label>Window (ms)</label>
         <select value={windowMs} onChange={(e) => setWindowMs(Number(e.target.value))}>
           <option value={2000}>2 s</option>
           <option value={5000}>5 s</option>
@@ -50,5 +50,5 @@ export default function WindowControls({
         />
       </div>
     </div>
-  )
+  );
 }
