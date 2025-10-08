@@ -5,7 +5,7 @@ import { formatMillisAsTime } from '../utils/parseTime'
 
 export default function SyncedChart({ data, dataKey, syncId }: { data: any[]; dataKey: string; syncId: string }){
   return (
-    <div className="chart-card" style={{height: 160}}>
+    <div className="chart-card" style={{height: 230}}>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} syncId={syncId} margin={{ top: 8, right: 24, left: 8, bottom: 8 }}>
           <CartesianGrid strokeDasharray="3 3" />
