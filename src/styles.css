@@ -1,0 +1,10 @@
+* { box-sizing: border-box; }
+body { font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin: 0; padding: 16px; background: #f5f6fa; }
+.app { max-width: 1200px; margin: 0 auto; }
+.controls { display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+.columns-list { max-height: 200px; overflow:auto; border:1px solid #ddd; padding:8px; background:#fff; }
+.charts { display:flex; flex-direction:column; gap:12px; }
+.chart-card { background:#fff; padding:8px; border-radius:8px; box-shadow: 0 1px 4px rgba(0,0,0,0.06);}
+.range { width:100%; }
+.file-input { padding:8px; }
+.sample-csv { font-family: monospace; white-space: pre; background:#fff; padding:8px; border-radius:6px; border:1px solid #eee; }
