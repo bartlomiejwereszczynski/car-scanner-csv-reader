@@ -14,7 +14,7 @@ what you can control:
 
 ## Do i need to run it locally?
 
-Nope, just head to it's github page [Car Scanner "CSV #2" data reader](https://bartlomiejwereszczynski.github.io/car-scanner-csv-reader/) (you'll need a recent browser since it uses some of the newer controls), and bam you're set.
+Nope, just head to the github page [Car Scanner "CSV #2" data reader](https://bartlomiejwereszczynski.github.io/car-scanner-csv-reader/) (you'll need a recent browser since it uses some of the newer controls), and bam you're set.
 
 ## How to use it?
 
