@@ -13,8 +13,15 @@ export default function App() {
   const [windowMs, setWindowMs] = useState(10000);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const onData = (rows: ParsedRow[]) => {
-    console.log('onData', rows);
     setData(rows);
     const cols = Object.keys(rows[0] ?? {}).filter(
       (k) => k !== 'time' && k !== 'timeMs' && k !== 'relTimeMs',
@@ -60,59 +67,87 @@ export default function App() {
   }, [isPlaying, windowMs, max]);
 
   const handlePlayPause = () => setIsPlaying((p) => !p);
-  const handleStop = () => {
-    setIsPlaying(false);
-    setStartMs(0);
-  };
+  const handleStop = () => setIsPlaying(false);
 
   return (
-    <div style={{ width: '100%', padding: '1rem', boxSizing: 'border-box' }}>
+    <div style={{ width: '100%', height: '100vh', boxSizing: 'border-box', padding: '1rem' }}>
       <h2>CSV Synced Charts (z odtwarzaniem i tytułami)</h2>
 
-      <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', flexWrap: 'wrap' }}>
-        <FileUploader onData={onData}/>
-        <div style={{ flex: 1, minWidth: '200px' }}>
-          <div style={{ marginBottom: 8 }}>Kolumny do wyświetlenia:</div>
-          <ColumnSelector columns={columns} selected={selected} onToggle={toggle}/>
-        </div>
-      </div>
-
-      <div style={{ marginTop: 16, width: '100%' }}>
-        <WindowControls
-          min={min}
-          max={max}
-          start={startMs}
-          setStart={setStartMs}
-          windowMs={windowMs}
-          setWindowMs={setWindowMs}
-          isPlaying={isPlaying}
-          onPlayPause={handlePlayPause}
-          onStop={handleStop}
-        />
-      </div>
-
-      <div style={{ marginTop: 16, width: '100%' }}>
-        {selected.length === 0 && (
-          <div style={{ textAlign: 'center', padding: '1rem', border: '1px dashed #ccc' }}>
-            Wybierz kolumnę do wyświetlenia
-          </div>
-        )}
-
-        {selected.map((col) => (
-          <div key={col} style={{ width: '100%', marginBottom: '1.5rem' }}>
-            <h3 style={{ margin: '0 0 0.5rem 0', textAlign: 'center' }}>{col}</h3>
-            <div style={{ width: '100%', height: 250 }}>
-              <SyncedChart data={visible} dataKey={col} syncId={'timeSync'}/>
+      {isDesktop ? (
+        // Desktop: lewa kolumna + prawa kolumna
+        <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+          <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <FileUploader onData={onData}/>
+            <div>
+              <div style={{ marginBottom: 8 }}>Kolumny do wyświetlenia:</div>
+              <ColumnSelector columns={columns} selected={selected} onToggle={toggle}/>
             </div>
           </div>
-        ))}
-      </div>
-
-      <div style={{ marginTop: 12, textAlign: 'center' }}>
-        <small>
-          Pierwsza kolumna musi być czasem w formacie <code>HH:mm:ss.SSS</code>.
-        </small>
-      </div>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <WindowControls
+              min={min}
+              max={max}
+              start={startMs}
+              setStart={setStartMs}
+              windowMs={windowMs}
+              setWindowMs={setWindowMs}
+              isPlaying={isPlaying}
+              onPlayPause={handlePlayPause}
+              onStop={handleStop}
+            />
+            <div style={{ flex: 1, overflowY: 'auto', width: '100%' }}>
+              {selected.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '1rem', border: '1px dashed #ccc' }}>
+                  Wybierz kolumnę do wyświetlenia
+                </div>
+              )}
+              {selected.map((col) => (
+                <div key={col} style={{ width: '100%', marginBottom: '1.5rem' }}>
+                  <h3 style={{ margin: '0 0 0.5rem 0', textAlign: 'center' }}>{col}</h3>
+                  <div style={{ width: '100%', height: 250 }}>
+                    <SyncedChart data={visible} dataKey={col} syncId={'timeSync'}/>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ) : (
+        // Mobile/Tablet: plik + kolumny u góry
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <FileUploader onData={onData}/>
+          <div>
+            <div style={{ marginBottom: 8 }}>Kolumny do wyświetlenia:</div>
+            <ColumnSelector columns={columns} selected={selected} onToggle={toggle}/>
+          </div>
+          <WindowControls
+            min={min}
+            max={max}
+            start={startMs}
+            setStart={setStartMs}
+            windowMs={windowMs}
+            setWindowMs={setWindowMs}
+            isPlaying={isPlaying}
+            onPlayPause={handlePlayPause}
+            onStop={handleStop}
+          />
+          <div style={{ flex: 1, overflowY: 'auto', width: '100%' }}>
+            {selected.length === 0 && (
+              <div style={{ textAlign: 'center', padding: '1rem', border: '1px dashed #ccc' }}>
+                Wybierz kolumnę do wyświetlenia
+              </div>
+            )}
+            {selected.map((col) => (
+              <div key={col} style={{ width: '100%', marginBottom: '1.5rem' }}>
+                <h3 style={{ margin: '0 0 0.5rem 0', textAlign: 'center' }}>{col}</h3>
+                <div style={{ width: '100%', height: 250 }}>
+                  <SyncedChart data={visible} dataKey={col} syncId={'timeSync'}/>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
