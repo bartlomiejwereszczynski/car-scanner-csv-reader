@@ -16,7 +16,7 @@ const SelectedColumnsInfo: React.FC<SelectedColumnsInfoProps> = ({ selected, vis
         {isVisible ? 'Ukryj dane' : 'Pokaż dane'}
       </button>
       {isVisible && (
-        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', fontSize: 12 }}>
+        <div style={{ display: 'inline-flex', gap: '1rem', flexWrap: 'wrap', fontSize: 12 }}>
           {selected.map((col) => {
             const lastValue = visibleData.length ? visibleData[visibleData.length - 1][col] : ''
             return (

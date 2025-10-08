@@ -33,6 +33,7 @@ export default function WindowControls({
           <option value={10000}>10 s</option>
           <option value={30000}>30 s</option>
           <option value={60000}>60 s</option>
+          <option value={120000}>120 s</option>
         </select>
       </div>
 

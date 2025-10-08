@@ -16,7 +16,7 @@ export default function SyncedChart({ data, dataKey, syncId }: { data: any[]; da
             tickFormatter={(v) => formatMillisAsTime(v as number)}
           />
           <YAxis />
-          <Tooltip labelFormatter={(v)=> formatMillisAsTime(Number(v))} />
+          <Tooltip labelFormatter={(v)=> formatMillisAsTime(Number(v))} animationDuration={200}/>
           <Line type="monotone" dataKey={dataKey} stroke="#1976d2" dot={false} isAnimationActive={false} />
         </LineChart>
       </ResponsiveContainer>

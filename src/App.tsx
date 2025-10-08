@@ -28,7 +28,7 @@ export default function App() {
       (k) => k !== 'time' && k !== 'timeMs' && k !== 'relTimeMs',
     );
     setColumns(cols);
-    setSelected(cols.slice(0, Math.min(3, cols.length)));
+    setSelected(cols.slice(0, cols.length));
     setStartMs(0);
     setIsPlaying(false);
   };
