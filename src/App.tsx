@@ -70,11 +70,18 @@ export default function App() {
   const handleStop = () => setIsPlaying(false);
 
   return (
-    <div style={{ width: '100%', height: '100vh', boxSizing: 'border-box', padding: '1rem' }}>
+    <div style={{
+      width: '100%',
+      height: '100vh',
+      boxSizing: 'border-box',
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '1rem',
+    }}>
       <h2>CSV Synced Charts (z odtwarzaniem i tytułami)</h2>
 
       {isDesktop ? (
-        <div style={{ display: 'flex', width: '100%', height: '100%' }}>
+        <div style={{ display: 'flex', flex: 1, gap: '1rem' }}>
           <div style={{ width: 300, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             <FileUploader onData={onData}/>
             <div>
@@ -82,19 +89,8 @@ export default function App() {
               <ColumnSelector columns={columns} selected={selected} onToggle={toggle}/>
             </div>
           </div>
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <WindowControls
-              min={min}
-              max={max}
-              start={startMs}
-              setStart={setStartMs}
-              windowMs={windowMs}
-              setWindowMs={setWindowMs}
-              isPlaying={isPlaying}
-              onPlayPause={handlePlayPause}
-              onStop={handleStop}
-            />
-            <div style={{ flex: 1, overflowY: 'auto', width: '100%' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            <div style={{ flex: 1, overflowY: 'auto' }}>
               {selected.length === 0 && (
                 <div style={{ textAlign: 'center', padding: '1rem', border: '1px dashed #ccc' }}>
                   Wybierz kolumnę do wyświetlenia
@@ -117,24 +113,13 @@ export default function App() {
           </div>
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', flex: 1, gap: '1rem' }}>
           <FileUploader onData={onData}/>
           <div>
             <div style={{ marginBottom: 8 }}>Kolumny do wyświetlenia:</div>
             <ColumnSelector columns={columns} selected={selected} onToggle={toggle}/>
           </div>
-          <WindowControls
-            min={min}
-            max={max}
-            start={startMs}
-            setStart={setStartMs}
-            windowMs={windowMs}
-            setWindowMs={setWindowMs}
-            isPlaying={isPlaying}
-            onPlayPause={handlePlayPause}
-            onStop={handleStop}
-          />
-          <div style={{ flex: 1, overflowY: 'auto', width: '100%' }}>
+          <div style={{ flex: 1, overflowY: 'auto' }}>
             {selected.length === 0 && (
               <div style={{ textAlign: 'center', padding: '1rem', border: '1px dashed #ccc' }}>
                 Wybierz kolumnę do wyświetlenia
@@ -156,6 +141,30 @@ export default function App() {
           </div>
         </div>
       )}
+
+      {/* Pływające kontrolki przypięte do dołu okna */}
+      <div style={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        background: 'rgba(255,255,255,0.95)',
+        padding: '0.5rem 1rem',
+        boxShadow: '0 -2px 5px rgba(0,0,0,0.1)',
+        zIndex: 1000,
+      }}>
+        <WindowControls
+          min={min}
+          max={max}
+          start={startMs}
+          setStart={setStartMs}
+          windowMs={windowMs}
+          setWindowMs={setWindowMs}
+          isPlaying={isPlaying}
+          onPlayPause={handlePlayPause}
+          onStop={handleStop}
+        />
+      </div>
     </div>
   );
 }
